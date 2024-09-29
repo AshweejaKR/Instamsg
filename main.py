@@ -5,10 +5,16 @@ Created on Sun Sep 29 22:38:07 2024
 @author: ashwe
 """
 
-import os
+import subprocess
+import sys
 import json
 
-from instagrapi import Client
+try:
+    from instagrapi import Client
+except ModuleNotFoundError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", 'Pillow'])
+    subprocess.check_call([sys.executable, "-m", "pip", "install", 'instagrapi'])
+    from instagrapi import Client
 
 global cl
 global username
@@ -86,6 +92,7 @@ def get_follower_list():
             temp = {}
             temp.update(followers)
             temp.update(following)
+            print(temp)
         except Exception as err: print(err)
 
         for i in temp:
